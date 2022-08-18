@@ -1,14 +1,15 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Container, Form, Header, Divinput } from "./styles";
-import Logo from "../imgs/Logo.png";
+import Logo from "../../imgs/Logo.png";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 function Register() {
   const history = useHistory();
+  const { registerPage } = useContext(UserContext);
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -27,21 +28,6 @@ function Register() {
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = async (data) => {
-    console.log(data);
-
-    await axios
-      .post("https://kenziehub.herokuapp.com/users", data)
-      .then((response) => {
-        console.log(response.data);
-        history.push("/");
-        sucess();
-      })
-      .catch((err) => console.log(err));
-  };
-
-  function sucess() {}
-
   return (
     <>
       <Container>
@@ -49,7 +35,7 @@ function Register() {
           <img src={Logo} alt="logo" />
           <button onClick={() => history.push("/")}>Voltar</button>
         </Header>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(registerPage)}>
           <div>
             <h1>Crie sua conta</h1>
             <h2>Rapido e grátis, vamos nessa</h2>

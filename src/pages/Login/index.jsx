@@ -1,23 +1,20 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Container, Form, ButtonJoin, ButtonRegister } from "./styles";
-import Logo from "../imgs/Logo.png";
+import Logo from "../../imgs/Logo.png";
+import { UserContext } from "../../contexts/UserContext";
 
 function Login() {
-  //const [loading, setLoading] = useState(true);
-  //const [user, setUser] = useState(true);
-
+  const { login, user } = useContext(UserContext);
   const history = useHistory();
 
   const formSchema = yup.object().shape({
     email: yup.string().required("Email obrigatório").email("Email inválido"),
     password: yup.string().required("Senha obrigatória"),
   });
-
   const {
     register,
     handleSubmit,
@@ -26,25 +23,11 @@ function Login() {
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = async (user) => {
-    console.log(user);
-
-    await axios
-      .post("https://kenziehub.herokuapp.com/sessions", user)
-      .then((response) => {
-        console.log(response);
-        window.localStorage.clear();
-        window.localStorage.setItem("@TOKEN", response.data.token);
-        window.localStorage.setItem("@USERID", response.data.user.id);
-        history.push("/dashboard");
-      })
-      .catch((err) => console.log(err));
-  };
   return (
     <>
       <Container>
         <img src={Logo} alt="logo" />
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(login)}>
           <h1>Login</h1>
           <div>
             <label>Email</label>

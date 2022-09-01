@@ -159,11 +159,12 @@ export const ButtonSave = styled.button`
   border-radius: 4px;
   font-size: 12.7913px;
   color: #ffffff;
+  background: #ff577f;
+  cursor: pointer;
 
-  ${(props) =>
-    props.saves
-      ? "cursor: not-allowed; background: #59323f; :disabled"
-      : "cursor: pointer; background: #FF577F;  "};
+  :hover {
+    background: #59323f;
+  }
 
   @media (min-width: 768px) {
     width: 204px;

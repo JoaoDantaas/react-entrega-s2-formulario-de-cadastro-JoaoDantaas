@@ -11,16 +11,15 @@ import {
   HeaderTech,
   Tech,
 } from "./styles";
-import Logo from "../../imgs/Logo.png";
 import { UserContext } from "../../contexts/UserContext";
 import AddModal from "../AddModal";
 import { TechContext } from "../../contexts/TechContext";
 import DeleteModal from "../DeleteModal";
 
-function Dashboard() {
+function Dashboard(): any {
   const [name, setName] = useState("");
   const [module, setModule] = useState("");
-  const { user, loading } = useContext(UserContext);
+  const { user, loading, techs, setTechs } = useContext(UserContext);
   const { setModalVisible, setModalDelVisible, setTechClick, save, setSave } =
     useContext(TechContext);
 
@@ -50,12 +49,11 @@ function Dashboard() {
         />
       </Reload>
     );
-
   return user ? (
     <>
       <Container>
         <Header>
-          <img src={Logo} alt="logo" />
+          <img src={require("../../imgs/Logo.png")} alt="logo" />
           <button onClick={clear}>Sair</button>
         </Header>
         <Risco></Risco>
@@ -69,19 +67,19 @@ function Dashboard() {
           <button onClick={() => setModalVisible(true)}>+</button>
         </HeaderTech>
         <List>
-          {user.techs.length > 0 ? (
-            user.techs.map((elem) => {
+          {techs.length > 0 ? (
+            techs.map(({ id, title, status }) => {
               return (
                 <Tech
                   onClick={() => {
                     setModalDelVisible(true);
                     setSave(true);
-                    setTechClick(elem.id);
+                    setTechClick(id);
                   }}
-                  key={elem.id}
+                  key={id}
                 >
-                  <h2>{elem.title}</h2>
-                  <h3>{elem.status}</h3>
+                  <h2>{title}</h2>
+                  <h3>{status}</h3>
                 </Tech>
               );
             })

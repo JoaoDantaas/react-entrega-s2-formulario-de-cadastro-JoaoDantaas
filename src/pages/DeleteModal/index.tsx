@@ -14,7 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { TechContext } from "../../contexts/TechContext";
 
-function DeleteModal() {
+function DeleteModal(): any {
   const {
     deleteTech,
     modalDelVisible,
@@ -24,7 +24,7 @@ function DeleteModal() {
     save,
     setSave,
   } = useContext(TechContext);
-  const { user } = useContext(UserContext);
+  const { user, techs } = useContext(UserContext);
 
   const formSchema = yup.object().shape({
     status: yup.string(),
@@ -57,9 +57,7 @@ function DeleteModal() {
               <h2>Nome do projeto</h2>
               <input
                 type="text"
-                placeholder={
-                  user.techs.find((tech) => tech.id === techClick).title
-                }
+                placeholder={techs.find((tech) => tech.id === techClick)?.title}
                 disabled
               />
               <h2>Status</h2>
@@ -73,11 +71,7 @@ function DeleteModal() {
               </select>
             </Div>
             <DivButton>
-              <ButtonSave
-                disabled={save}
-                saves={save}
-                onClick={handleSubmit(attTech)}
-              >
+              <ButtonSave disabled={save} onClick={handleSubmit(attTech)}>
                 Salvar alterações
               </ButtonSave>
               <ButtonDel onClick={deleteTech}>Excluir</ButtonDel>

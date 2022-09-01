@@ -56,6 +56,12 @@ export const Form = styled.form`
     color: #868e96;
   }
 
+  h3 {
+    font-weight: 600;
+    font-size: 9.62602px;
+    color: #868e96;
+  }
+
   @media (min-width: 768px) {
     width: 369px;
     height: 502px;
@@ -74,6 +80,9 @@ export const Form = styled.form`
     }
 
     h2 {
+      font-size: 12px;
+    }
+    h3 {
       font-size: 12px;
     }
   }

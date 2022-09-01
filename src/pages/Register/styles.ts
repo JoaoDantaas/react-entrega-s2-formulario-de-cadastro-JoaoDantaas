@@ -65,6 +65,13 @@ export const Form = styled.form`
     text-align: center;
   }
 
+  h3 {
+    font-weight: 600;
+    font-size: 9.62602px;
+    color: #868e96;
+    margin: 0;
+  }
+
   button {
     width: 260.65px;
     height: 38.38px;
@@ -82,8 +89,8 @@ export const Form = styled.form`
 
   @media (min-width: 768px) {
     width: 370px;
-    height: 891.19px;
-    justify-content: flex-start;
+    height: 725px;
+    justify-content: space-evenly;
     margin-bottom: 20px;
 
     h1 {
@@ -94,9 +101,14 @@ export const Form = styled.form`
       font-size: 12px;
     }
 
+    h3 {
+      font-size: 12px;
+    }
+
     button {
       width: 326px;
       height: 48px;
+      margin-top: 20px;
     }
   }
 `;

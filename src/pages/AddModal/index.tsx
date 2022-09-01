@@ -6,7 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { TechContext } from "../../contexts/TechContext";
 
-function AddModal() {
+interface IUser {
+  title: string;
+  status: string;
+}
+
+function AddModal(): any {
   const {} = useContext(UserContext);
   const { createTech, modalVisible, setModalVisible } = useContext(TechContext);
 
@@ -19,7 +24,7 @@ function AddModal() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IUser>({
     resolver: yupResolver(formSchema),
   });
 

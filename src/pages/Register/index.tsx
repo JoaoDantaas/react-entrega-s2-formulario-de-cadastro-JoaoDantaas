@@ -3,9 +3,18 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useHistory } from "react-router-dom";
 import { Container, Form, Header, Divinput } from "./styles";
-import Logo from "../../imgs/Logo.png";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+
+interface IUser {
+  name: string;
+  CPF: string;
+  email: string;
+  password: string;
+  course_module: string;
+  contact: string;
+  bio: string;
+}
 
 function Register() {
   const history = useHistory();
@@ -24,7 +33,7 @@ function Register() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IUser>({
     resolver: yupResolver(formSchema),
   });
 
@@ -32,7 +41,7 @@ function Register() {
     <>
       <Container>
         <Header>
-          <img src={Logo} alt="logo" />
+          <img src={require("../../imgs/Logo.png")} alt="logo" />
           <button onClick={() => history.push("/")}>Voltar</button>
         </Header>
         <Form onSubmit={handleSubmit(registerPage)}>
@@ -43,17 +52,17 @@ function Register() {
           <Divinput>
             <label>Nome</label>
             <input placeholder="Digite aqui seu nome" {...register("name")} />
-            <h3>{errors.name?.message}</h3>
+            {errors.name?.message && <h3>{errors.name?.message}</h3>}
           </Divinput>
           <Divinput>
             <label>Email</label>
             <input placeholder="Digite aqui seu Email" {...register("email")} />
-            <h3>{errors.email?.message}</h3>
+            {errors.email?.message && <h3>{errors.email?.message}</h3>}
           </Divinput>
           <Divinput>
             <label>Senha</label>
             <input placeholder="Digite aqui seu Senha" type="password" />
-            <h3>{errors.password?.message}</h3>
+            {errors.password?.message && <h3>{errors.password?.message}</h3>}
           </Divinput>
           <Divinput>
             <label>Confirmar Senha</label>
@@ -62,17 +71,17 @@ function Register() {
               placeholder="Digite novamente sua senha"
               {...register("password")}
             />
-            <h3>{errors.password?.message}</h3>
+            {errors.password?.message && <h3>{errors.password?.message}</h3>}
           </Divinput>
           <Divinput>
             <label>Bio</label>
             <input placeholder="Fale sobre você" {...register("bio")} />
-            <h3>{errors.bio?.message}</h3>
+            {errors.bio?.message && <h3>{errors.bio?.message}</h3>}
           </Divinput>
           <Divinput>
             <label>Contato</label>
             <input placeholder="Opção de contato" {...register("contact")} />
-            <h3>{errors.contact?.message}</h3>
+            {errors.contact?.message && <h3>{errors.contact?.message}</h3>}
           </Divinput>
           <Divinput>
             <label>Selecionar módulo</label>
@@ -90,7 +99,9 @@ function Register() {
                 Quarto módulo (Backend Avançado)
               </option>
             </select>
-            <h3>{errors.course_module?.message}</h3>
+            {errors.course_module?.message && (
+              <h3>{errors.course_module?.message}</h3>
+            )}
           </Divinput>
           <button>Cadastrar</button>
         </Form>
